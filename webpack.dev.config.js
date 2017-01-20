@@ -1,22 +1,24 @@
-const path = require('path');
+const { join } = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 
   entry: [
+    'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-    path.join(__dirname, 'main.js')
+    'webpack/hot/only-dev-server',
+    './main.js'
   ],
 
   output: {
-    path: path.join(__dirname, 'build'),
+    path: join(__dirname, 'build'),
     publicPath: '/',
     filename: 'bundle.js'
   },
 
   resolve: {
-    modulesDirectories: ['node_modules']
+    modules: ['node_modules']
   },
 
   devtool: 'cheap-inline-module-source-map',
@@ -24,29 +26,24 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['build'], { dry: false }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js?$/,
-        loader: 'babel',
+        test: /\.js$/,
+        loader: 'babel-loader',
         exclude: /node_modules/
-      },
+  },
       {
-        test: /\.scss?$/,
-        loader: 'style!css!sass'
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
-      {
-        test: /\.png$/,
-        loader: 'file'
-      },
-      {
-        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        loader: 'file'
-      }
-    ]
-  }
+    ],
+  },
 }

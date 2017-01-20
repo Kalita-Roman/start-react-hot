@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/main.scss'
 
+import { AppContainer } from 'react-hot-loader';
+
 render();
 
 if (module.hot) {
@@ -13,7 +15,9 @@ if (module.hot) {
 function render() {
 	const App = require('./components/App/App.js').default;
 	ReactDOM.render(
-		<App />,
+		<AppContainer>
+			<App />
+		</AppContainer>,
 		document.getElementById('root')
 	);
 }
