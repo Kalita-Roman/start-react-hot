@@ -18,10 +18,11 @@ module.exports = {
   },
 
   resolve: {
-    modules: ['node_modules']
+    modules: ['node_modules', './']
   },
 
-  devtool: 'cheap-inline-module-source-map',
+  //devtool: 'cheap-inline-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
     new CleanWebpackPlugin(['build'], { dry: false }),

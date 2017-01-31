@@ -1,5 +1,6 @@
-import path from 'path';
+import { join } from 'path';
 import express from 'express';
+import api from './api.js';
 
 var bodyParser = require('body-parser');
 var upload = require('multer')();  // for parsing multipart/form-data
@@ -16,7 +17,9 @@ if (isDev) {
 }
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: path.join(__dirname, '..') }, err => { err && console.log(err); });
+  res.sendFile('index.html', { root: join(__dirname, '..') }, err => { err && console.log(err); });
 });
+
+api(app);
 
 export default app;
